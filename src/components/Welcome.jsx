@@ -1,8 +1,13 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import { Loader } from "./";
+
+
+
+// import context
+import { TransactionContext } from "../context/TransactionContext";
 
 const commonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -19,6 +24,9 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 );
 
 const Welcome = () => {
+  // context settings
+  const {value} = useContext(TransactionContext);
+  console.log(value)
   const connectWallet = () => {};
 
   const handleSubmit = () => {};
@@ -112,8 +120,10 @@ const Welcome = () => {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] rounded-full cursor-pointer"
-                ></button>
+                  className="text-white w-full mt-2 border-[1px] p-2 border-[#3d4f7c] hover:bg-[#3d4f7c] rounded-full cursor-pointer"
+                >
+                  Send Now
+                </button>
               </div>
             )}
           </div>
