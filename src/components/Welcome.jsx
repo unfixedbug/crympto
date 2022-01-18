@@ -1,9 +1,10 @@
 import React from "react";
 import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
-import { BsinfoCircle } from "react-icons/bs";
-
+import { BsInfoCircle } from "react-icons/bs";
 import { Loader } from "./";
+
+const commonStyles = ''
 
 const Welcome = () => {
   const connectWallet = () => {};
@@ -23,9 +24,11 @@ const Welcome = () => {
             onClick={connectWallet}
             className="felx flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
           >
-            <p className="text-white text-base font-semibold">ConnectWallet</p>
+            <p className="text-white text-base font-semibold">Connect Wallet</p>
           </button>
-          <div className="grid sm:grid-col-3 grid-cols-2 w-full mt-10"></div>
+          <div className="grid sm:grid-col-3 grid-cols-2 w-full mt-10">
+            <div className={`rounded-tl-2xl ${commonStyles}`}></div>
+          </div>
         </div>
       </div>
     </div>
