@@ -2,6 +2,7 @@ import React from "react";
 import { TransactionContext } from "../context/TransactionContext";
 import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
+import { useFetch } from "../hooks/useFetch";
 
 // transaction card
 const TransactionCard = ({
@@ -13,40 +14,62 @@ const TransactionCard = ({
   amount,
   url,
 }) => {
-  return <div className="bg-[#181918] m-4 flex flex-1
-  2xl:min-w-[450px]
-  2xl:max-w-[500px]
-  sm:min-w-[270px]
-  sm:max-w-[300px]
-  flex-col p-3 rounded;md hover:shadow-xl
-  ">
-    <div className="flex flex-col items-center w-full mt-3">
-      <div className="w-full mb-6 p-2">
-        {/* From line */}
-        <a href={`https://ropsten.etherscan.io/address/${addressFrom}`} target="_blank" rel="noopener noreferrer">
-          <p className="text-white text-base"> From: {shortenAddress(addressFrom)}</p>
-        </a>
-        {/* To line */}
-        <a href={`https://ropsten.etherscan.io/address/${addressto}`} target="_blank" rel="noopener noreferrer">
-          <p className="text-white text-base"> From: {shortenAddress(addressto)}</p>
-        </a>
-        <p className="text-white text-base">Amount: {amount} ETH</p>
-        {message && (
-          <>
-          <br />
-          <p className="text-white text-base">
-            Message: {message}
-          </p>
-          </>
-        )}
+  // giphy url api endpoint
+  const gifUrl = useFetch({ keyword });
+  return (
+    <div
+      className="bg-[#181918] m-4 flex flex-1
+      2xl:min-w-[450px]
+      2xl:max-w-[500px]
+      sm:min-w-[270px]
+      sm:max-w-[300px]
+      flex-col p-3 rounded;md hover:shadow-2xl"
+    >
+      <div className="flex flex-col items-center w-full mt-3">
+        <div className="w-full mb-6 p-2">
+          {/* From line */}
+          <a
+            href={`https://ropsten.etherscan.io/address/${addressFrom}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="text-white text-base">
+              {" "}
+              From: {shortenAddress(addressFrom)}
+            </p>
+          </a>
+          {/* To line */}
+          <a
+            href={`https://ropsten.etherscan.io/address/${addressto}`}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p className="text-white text-base">
+              {" "}
+              From: {shortenAddress(addressto)}
+            </p>
+          </a>
+          <p className="text-white text-base">Amount: {amount} ETH</p>
+          {message && (
+            <>
+              <br />
+              <p className="text-white text-base">Message: {message}</p>
+            </>
+          )}
+        </div>
+
+        <img
+          src={gifUrl || url}
+          alt="gif"
+          className="w-full h-64 2x:h-96 rounded-md shadow-lg object-cover"
+        />
 
         <div className="bg-black p-3 px-5 w-max rounded-3xl -mt-5 shadow-2xl ">
-          <p className="text-[#37C7D8] font-bold"></p>
+          <p className="text-[#37C7D8] font-bold">{timestamp}</p>
         </div>
       </div>
     </div>
-
-  </div>;
+  );
 };
 
 const Transactions = () => {
@@ -65,8 +88,8 @@ const Transactions = () => {
           </h3>
         )}
         {/* latest Transctions if, account is connected */}
-        <div className="flex flex-wrap items-center justify-center">
-          {dummyData.reverse().map((transaction, i) => (
+        <div className="flex flex-wrap items-center justify-center mt-10">
+          {[...dummyData,...transaction].reverse().map((transaction, i) => (
             <TransactionCard key={i} {...transaction} />
           ))}
         </div>
