@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { TransactionContext } from "../context/TransactionContext";
+import useFetch from "../hooks/useFetch";
 import dummyData from "../utils/dummyData";
 import { shortenAddress } from "../utils/shortenAddress";
-import { useFetch } from "../hooks/useFetch";
-
 // transaction card
-const TransactionCard = ({
+const TransactionsCard = ({
   addressTo,
   addressFrom,
   timestamp,
@@ -40,13 +39,13 @@ const TransactionCard = ({
           </a>
           {/* To line */}
           <a
-            href={`https://ropsten.etherscan.io/address/${addressto}`}
+            href={`https://ropsten.etherscan.io/address/${addressTo}`}
             target="_blank"
             rel="noreferrer"
           >
             <p className="text-white text-base">
               {" "}
-              From: {shortenAddress(addressto)}
+              From: {shortenAddress(addressTo)}
             </p>
           </a>
           <p className="text-white text-base">Amount: {amount} ETH</p>
@@ -73,7 +72,7 @@ const TransactionCard = ({
 };
 
 const Transactions = () => {
-  const { currentAccount } = useContext(TransactionContext);
+  const {transactions, currentAccount } = useContext(TransactionContext);
 
   return (
     <div className="flex w-full justify-center items-center 2xl:px-20 gradient-bg-transactions">
@@ -88,9 +87,9 @@ const Transactions = () => {
           </h3>
         )}
         {/* latest Transctions if, account is connected */}
-        <div className="flex flex-wrap items-center justify-center mt-10">
-          {[...dummyData,...transaction].reverse().map((transaction, i) => (
-            <TransactionCard key={i} {...transaction} />
+        <div className="flex flex-wrap justify-center items-center mt-10">
+          {[...dummyData, ...transactions].reverse().map((transaction, i) => (
+            <TransactionsCard key={i} {...transaction} />
           ))}
         </div>
       </div>

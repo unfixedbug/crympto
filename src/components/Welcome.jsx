@@ -3,12 +3,10 @@ import { AiFillPlayCircle } from "react-icons/ai";
 import { SiEthereum } from "react-icons/si";
 import { BsInfoCircle } from "react-icons/bs";
 import { Loader } from "./";
-import {shortenAddress} from '../utils/shortenAddress';
-
+import { shortenAddress } from "../utils/shortenAddress";
 
 // import context
 import { TransactionContext } from "../context/TransactionContext";
-
 
 const commonStyles =
   "min-h-[70px] sm:px-0 px-2 sm:min-w-[120px] flex justify-center items-center border-[0.5px] border-gray-400 text-sm font-light text-white";
@@ -26,7 +24,14 @@ const Input = ({ placeholder, name, type, value, handleChange }) => (
 
 const Welcome = () => {
   // context settings
-  const { currentAccount, connectWallet, handleChange, sendTransaction, formData, isLoading } = useContext(TransactionContext);
+  const {
+    currentAccount,
+    connectWallet,
+    handleChange,
+    sendTransaction,
+    formData,
+    isLoading,
+  } = useContext(TransactionContext);
 
   const handleSubmit = (e) => {
     const { addressTo, amount, keyword, message } = formData;
@@ -39,8 +44,8 @@ const Welcome = () => {
   };
   return (
     <div className="flex w-full justify-center items-center">
-      <div className="flex mf:flex-row  flex-col items-start justify-between md:p-20 py-12 px-4">
-        <div className="flex flex-1 justify-start flex-col mf:mr-10">
+      <div className="flex mf:flex-row flex-col items-start justify-between md:p-20 py-12 px-4">
+        <div className="flex flex-1 justify-start items-start flex-col mf:mr-10">
           {/* main page  */}
           <h1 className="text-3xl sm:text-5xl text-white text-gradient py-1">
             Send Crypto <br /> across the world
@@ -49,16 +54,19 @@ const Welcome = () => {
             Explore the Crypto world with us.
           </p>
 
-
           {/* account config setup */}
-          <button
-            type="button"
-            onClick={connectWallet}
-            className="felx flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
-          >
-            <AiFillPlayCircle className="text-white mr-2" />
-            <p className="text-white text-base font-semibold">Connect Wallet</p>
-          </button>
+          {!currentAccount && (
+            <button
+              type="button"
+              onClick={connectWallet}
+              className="flex flex-row justify-center items-center my-5 bg-[#2952e3] p-3 rounded-full cursor-pointer hover:bg-[#2546bd]"
+            >
+              <AiFillPlayCircle className="text-white mr-2" />
+              <p className="text-white text-base font-semibold">
+                Connect Wallet
+              </p>
+            </button>
+          )}
 
           {/* grid services block */}
           <div className="grid sm:grid-cols-3 grid-cols-2 w-full mt-10">
@@ -83,7 +91,9 @@ const Welcome = () => {
               </div>
               {/* address for blockchain */}
               <div>
-                <p className="text-white font-light text-sm">{shortenAddress(currentAccount)}</p>
+                <p className="text-white font-light text-sm">
+                  {shortenAddress(currentAccount)}
+                </p>
                 <p className="text-white font-semibold text-lg mt-1">Eths</p>
               </div>
             </div>
@@ -139,3 +149,5 @@ const Welcome = () => {
   );
 };
 export default Welcome;
+
+
