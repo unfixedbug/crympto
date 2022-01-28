@@ -103,7 +103,7 @@ export const TransactionsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
 
-      throw new Error("No ethereum object");
+      throw new Error("No ethereum object, transaction exist error");
     }
   };
 
@@ -119,7 +119,7 @@ export const TransactionsProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
 
-      throw new Error("No ethereum object");
+      throw new Error("No ethereum object, connect wallet error");
     }
   };
 
@@ -160,12 +160,12 @@ export const TransactionsProvider = ({ children }) => {
 
         setTransactionCount(transactionsCount.toNumber());
       } else {
-        console.log("No ethereum object");
+        console.log("No ethereum object , send transaction error");
       }
     } catch (error) {
       console.log(error);
 
-      throw new Error("No ethereum object");
+      throw new Error("No ethereum object , send transaction error");
     }
   };
 
